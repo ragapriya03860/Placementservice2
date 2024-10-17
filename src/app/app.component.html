@@ -1,0 +1,119 @@
+<div class="container-fluid bg-light min-vh-100 py-5">
+  <div class="row justify-content-center">
+    <div class="col-md-6">
+      <div class="card shadow-lg animate__animated animate__fadeIn">
+        <div class="card-body">
+          <h2 class="card-title text-center mb-4">Placement Database</h2>
+          <form #registerForm="ngForm" (ngSubmit)="register(registerForm)">
+            <div class="mb-3">
+              <label for="companyName" class="form-label">Company Name</label>
+              <input id="companyName" required #companyName="ngModel" ngModel name="companyName" type="text"
+                class="form-control" placeholder="Enter company name">
+              <div *ngIf="companyName.invalid && companyName.touched" class="text-danger">
+                <small *ngIf="companyName.errors?.['required']">Required</small>
+              </div>
+            </div>
+
+            <div class="mb-3">
+              <label for="position" class="form-label">Position</label>
+              <input id="position" required #position="ngModel" ngModel name="position" type="text"
+                class="form-control" placeholder="Enter position">
+              <div *ngIf="position.invalid && position.touched" class="text-danger">
+                <small *ngIf="position.errors?.['required']">Required</small>
+              </div>
+            </div>
+
+            <div class="mb-3">
+              <label for="location" class="form-label">Location</label>
+              <input id="location" required #location="ngModel" ngModel name="location" type="text"
+                class="form-control" placeholder="Enter location">
+              <div *ngIf="location.invalid && location.touched" class="text-danger">
+                <small *ngIf="location.errors?.['required']">Required</small>
+              </div>
+            </div>
+
+            <div class="mb-3">
+              <label for="salaryPackage" class="form-label">Salary Package</label>
+              <input id="salaryPackage" required #salaryPackage="ngModel" ngModel name="salaryPackage" type="text"
+                class="form-control" placeholder="Enter salary package">
+              <div *ngIf="salaryPackage.invalid && salaryPackage.touched" class="text-danger">
+                <small *ngIf="salaryPackage.errors?.['required']">Required</small>
+              </div>
+            </div>
+
+            <div class="mb-3">
+              <label for="driveDate" class="form-label">Drive Date</label>
+              <input id="driveDate" required #driveDate="ngModel" ngModel name="driveDate" type="date"
+                class="form-control">
+              <div *ngIf="driveDate.invalid && driveDate.touched" class="text-danger">
+                <small *ngIf="driveDate.errors?.['required']">Required</small>
+              </div>
+            </div>
+
+            <div class="text-center">
+              <button type="submit" class="btn btn-primary" [disabled]="!registerForm.form.valid">Submit</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row mt-5">
+    <div class="col-12">
+      <h3 class="text-center mb-4">Placement Details</h3>
+      <div class="row row-cols-1 row-cols-md-3 g-4">
+        <div *ngFor="let placement of placementDetails" class="col animate__animated animate__fadeIn">
+          <div class="card h-100 shadow-sm">
+            <div class="card-body">
+              <div class="d-flex align-items-center mb-3">
+                <i class="bi bi-person-circle fs-1 me-3"></i>
+                <h5 class="card-title mb-0">{{placement.companyName}}</h5>
+              </div>
+              <p class="card-text"><strong>Position:</strong> {{placement.position}}</p>
+              <p class="card-text"><strong>Location:</strong> {{placement.location}}</p>
+              <p class="card-text"><strong>Salary Package:</strong> {{placement.salaryPackage}}</p>
+              <p class="card-text"><strong>Drive Date:</strong> {{placement.driveDate | date:'mediumDate'}}</p>
+            </div>
+            <div class="card-footer bg-transparent border-top-0">
+              <div class="d-flex justify-content-between">
+                <button type="button" class="btn btn-outline-primary btn-sm" data-bs-toggle="modal" data-bs-target="#updateModal" (click)="edit(placement)">
+                  <i class="bi bi-pencil-square"></i> Edit
+                </button>
+                <button type="button" class="btn btn-outline-danger btn-sm" (click)="deletePlacement(placement)">
+                  <i class="bi bi-trash"></i> Delete
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Update Modal -->
+<div class="modal fade" id="updateModal" tabindex="-1" aria-labelledby="updateModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="updateModalLabel">Update Placement</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form #updateForm="ngForm" (ngSubmit)="updatePlacement()">
+          <!-- Add form fields similar to the registration form, but use [(ngModel)] for two-way binding -->
+          <!-- Example: -->
+          <div class="mb-3">
+            <label for="updateCompanyName" class="form-label">Company Name</label>
+            <input id="updateCompanyName" required [(ngModel)]="placementToUpdate.companyName" name="companyName" type="text" class="form-control">
+          </div>
+          <!-- Add other fields similarly -->
+          <div class="text-center">
+            <button type="submit" class="btn btn-primary" data-bs-dismiss="modal">Update</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

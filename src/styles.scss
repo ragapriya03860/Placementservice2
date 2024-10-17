@@ -1,0 +1,29 @@
+/* You can add global styles to this file, and also import other style files */
+
+@import "~animate.css";
+@import "~bootstrap-icons/font/bootstrap-icons.css";
+
+body {
+  font-family: 'Roboto', sans-serif;
+}
+
+.card {
+  transition: transform 0.3s ease-in-out;
+
+  &:hover {
+    transform: translateY(-5px);
+  }
+}
+
+.animate__animated {
+  animation-duration: 0.5s;
+}
+
+.btn {
+  transition: all 0.3s ease;
+
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+}
